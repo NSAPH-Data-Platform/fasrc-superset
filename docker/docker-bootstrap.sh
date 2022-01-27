@@ -19,7 +19,7 @@
 set -eo pipefail
 
 echo "${POSTGRES_HOST}  db" >> /etc/hosts
-sudo apt-get install postgresql-client
+apt-get install postgresql-client
 psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}';"
 psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE DATABASE ${POSTGRES_DB};"
 psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} to ${POSTGRES_USER};"
