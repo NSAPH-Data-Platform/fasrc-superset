@@ -26,6 +26,9 @@ x-aliases:
   - &superset_env
       environment:
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-superset}
+        DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-superset}
+        ADMIN_PG_USER: ${ADMIN_PG_USER}
+        ADMIN_PG_PASSWORD: ${ADMIN_PG_PASSWORD}
         POSTGRES_HOST: ${POSTGRES_HOST:-172.18.0.1}
       env_file: docker/.env-fasrc
 
