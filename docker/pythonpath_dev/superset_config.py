@@ -29,6 +29,7 @@ from cachelib.file import FileSystemCache
 from celery.schedules import crontab
 
 logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 
 
 def get_env_variable(var_name: str, default: Optional[str] = None) -> str:
