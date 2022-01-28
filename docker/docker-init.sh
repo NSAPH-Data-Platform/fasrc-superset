@@ -44,9 +44,20 @@ if [ "$CYPRESS_CONFIG" == "true" ]; then
     export SUPERSET_CONFIG=tests.superset_test_config
     export SUPERSET_TESTENV=true
     export ENABLE_REACT_CRUD_VIEWS=true
-    export SUPERSET__SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://superset:superset@db:5432/superset
+    export SUPERSET__SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
 fi
 # Initialize the database
+
+echo_step "0" "Setting up database"
+echo "${POSTGRES_HOST}  db" >> /etc/hosts
+apt-get -y update && apt-get -y install postgresql-client
+export PGPASSWORD=${ADMIN_PG_PASSWORD}
+echo    ${POSTGRES_HOST} ":" ${ADMIN_PG_USER}
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}';" || echo "OK"
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE DATABASE ${POSTGRES_DB};"  || echo "OK"
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} to ${POSTGRES_USER};" || echo "OK"
+echo_step "0" "Complete" "Setting up database"
+
 echo_step "1" "Starting" "Applying DB migrations"
 superset db upgrade
 echo_step "1" "Complete" "Applying DB migrations"
