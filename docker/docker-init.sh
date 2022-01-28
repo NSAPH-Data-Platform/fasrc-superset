@@ -53,9 +53,9 @@ echo "${POSTGRES_HOST}  db" >> /etc/hosts
 apt-get -y update && apt-get -y install postgresql-client
 export PGPASSWORD=${ADMIN_PG_PASSWORD}
 echo    ${POSTGRES_HOST} ":" ${ADMIN_PG_USER}
-psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}';"
-psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE DATABASE ${POSTGRES_DB};"
-psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} to ${POSTGRES_USER};"
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}';" || echo "OK"
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "CREATE DATABASE ${POSTGRES_DB};"  || echo "OK"
+psql -h ${POSTGRES_HOST} -U ${ADMIN_PG_USER} -c "GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} to ${POSTGRES_USER};" || echo "OK"
 echo_step "0" "Complete" "Setting up database"
 
 echo_step "1" "Starting" "Applying DB migrations"
