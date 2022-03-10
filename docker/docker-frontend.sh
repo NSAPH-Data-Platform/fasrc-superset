@@ -17,6 +17,9 @@
 #
 set -e
 
+npm config set proxy $HTTP_PROXY
+npm config set https-proxy $HTTPS_PROXY
+
 cd /app/superset-frontend
 npm install -g npm@7
 npm install -f --no-optional --global webpack webpack-cli
