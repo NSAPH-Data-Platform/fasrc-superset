@@ -34,6 +34,8 @@ x-aliases:
         ADMIN_PG_USER: ${ADMIN_PG_USER}
         ADMIN_PG_PASSWORD: ${ADMIN_PG_PASSWORD}
         POSTGRES_HOST: ${POSTGRES_HOST:-172.18.0.1}
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
       env_file: docker/.env-fasrc
 
 version: "3.9"
